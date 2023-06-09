@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect } from 'react';
 import * as React from 'react';
 import { 
     Button, View, Text, KeyboardAvoidingView } 
@@ -7,13 +7,29 @@ import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 
 
 export function AuthenticationScreen({ navigation }) {
+    let textInput = useRef(null)
     const [phoneNumber, setPhoneNumber]=useState();
+    const [focusInput, setFocusInput]= useState(true);
     const onChangePhone = () =>{
        setPhoneNumber(number)
     }
     const onPressContinue= ()=>{
-
+       if(phoneNumber) {
+        navigation.navigae('')
+       }
     }
+    const onChangeFocus = () => {
+        setFocusInput(true)
+    }
+
+    const onChangeBlur =() =>{
+        setFocusInput(false)
+    }
+
+    useEffect[() => {
+        textInput.focus()
+    }]
+
 
 
     return (
@@ -23,25 +39,37 @@ export function AuthenticationScreen({ navigation }) {
             behavior={'padding'}
             style={styles.containerAvoiddingView}
         >
-        <Text style={styles.textTitle}>{"OK"}</Text>
-        <View style={styles.containerInput}>
+        <Text style={styles.textTitle}>{"What is your phone number"}</Text>
+        <View style={[styles.containerInput,
+            {
+                borderBottomColor: '#a9a9a9'
+            }
+        ]}>
             <View style={styles.openDialogView}>
                 <Text>{"+91 | "}</Text>
             </View>
             <TextInput
+                ref={(input) => textInput = input}
                 style={styles.phoneInputStyle}
                 placeholder="00000 00000"
                 keyboardType="numeric"
                 value={"PhoneNumber"}
                 onChangeText={onChangePhone}
                 secureTextEntry={false}
+                onFocus={onChangeFocus}
+                onBlur={onChangeBlur}
             />
         </View>
     
         <View style={styles.viewBottom}>
             <TouchableOpacity onPress={onPressContinue}>
-                <View style={styles.btmContinue}>
-                    <Text style={{color: '#ffffff', alignItems: 'center'}}>Continue</Text>
+                <View style={
+                    [styles.btnContinue,
+                        {
+                            backgroundColor:phoneNumber? '#a9a9a9' : 'gray'
+                        }]
+                    }>
+                    <Text style={styles.textContinue}>Continue</Text>
                 </View> 
             </TouchableOpacity>
             
@@ -65,7 +93,7 @@ export function AuthenticationScreen({ navigation }) {
     textTitle: {
         marginBottom:50,
         marginTop: 50,
-        fontSize: 15
+        fontSize: 16
     },
     containerInput: {
         flexDirection: 'row',
@@ -73,7 +101,7 @@ export function AuthenticationScreen({ navigation }) {
         borderRadius:10,
         backgroundColor:'white',
         alignItems: 'center',
-        borderBottomColor:1.5
+        borderBottomWidth:1.5
 
     },
     openDialogView:{
@@ -98,8 +126,13 @@ export function AuthenticationScreen({ navigation }) {
         borderRadius: 10,
         alignItems: 'center',
         justifyContent:'center'
+        
 
     },
+    textContinue:{
+        color: '#ffffff', 
+        alignItems: 'center'
+    }
 
   })
   
