@@ -3,7 +3,8 @@ import { Button, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {AuthenticationScreen} from './src/AutheticationScreen';
-import {InputOTPscreen} from './src/InputOTPScreen';
+import {InputOTPScreen} from './src/InputOTPScreen';
+
 import {HomeScreen} from './src/HomeScreen';
 
 
@@ -13,8 +14,8 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Authentication">
-        <Stack.Screen name="Authetication" component={AutheticationScreen} />
-        <Stack.Screen name="InputOTP" component={Input} />
+        <Stack.Screen name="Authentication" component={AuthenticationScreen} />
+        <Stack.Screen name="InputOTP" component={InputOTPScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
